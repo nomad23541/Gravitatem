@@ -13,8 +13,8 @@ public class GravitatemGame extends ApplicationAdapter {
 	
 	// global variables
 	public static final String TITLE = "Gravitatem";
-	public static final int V_WIDTH = 400;
-	public static final int V_HEIGHT = 600;
+	public static final int V_WIDTH = 640;
+	public static final int V_HEIGHT = 360;
 	public static final int SCALE = 2;
 	public static final float STEP = 1 / 60f;
 	
@@ -32,6 +32,10 @@ public class GravitatemGame extends ApplicationAdapter {
 
 	public void create() {
 		Gdx.input.setInputProcessor(new InputProcessor());
+		
+		content = new ContentPipeline();
+		content.loadTexture("texture/background/WallPanel.png", "wallPanel");
+		content.loadTexture("texture/sprites/player/Player.png", "player");
 		
 		cam = new BoundedCamera();
 		cam.setToOrtho(false, V_WIDTH, V_HEIGHT);

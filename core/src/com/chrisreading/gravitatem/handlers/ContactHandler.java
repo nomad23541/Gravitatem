@@ -13,7 +13,7 @@ import com.badlogic.gdx.utils.Array;
  */
 public class ContactHandler implements ContactListener {
 	
-	private int numFootContacts;
+	private static int numFootContacts;
 	private boolean portalCollide;	
 	private boolean dead = false;
 	
@@ -22,7 +22,7 @@ public class ContactHandler implements ContactListener {
 	
 	public boolean isPlayerDead() { return dead; }
 	public void setPlayerDead(boolean dead) { this.dead = dead; }
-	public boolean isPlayerOnGround() { return numFootContacts > 0; }
+	public static boolean isPlayerOnGround() { return numFootContacts > 0; }
 	public boolean isPlayerInPortal() { return portalCollide; }
 	
 	public Array<Body> getCrystalsToRemove() { return crystalsToRemove; }

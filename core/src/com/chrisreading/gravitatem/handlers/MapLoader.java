@@ -91,6 +91,23 @@ public class MapLoader {
 		}
 	}
 	
+	public List<Vector2> getLights(TiledMapTileLayer layer) {
+		List<Vector2> points = new ArrayList<Vector2>();
+		
+		for(int row = 0; row < mapHeight; row++) {
+			for(int col = 0; col < mapWidth; col++) {
+				Cell cell = layer.getCell(col, row);
+				
+				if(cell == null) continue;
+				if(cell.getTile() == null) continue;
+				
+				points.add(new Vector2((col + 0.5f) * tileSize, (row + 0.5f) * tileSize));
+			}
+		}
+		
+		return points;
+	}
+	
 	public void loadLayer(TiledMapTileLayer layer, short bits, String data) {	
 		BodyDef bdef = new BodyDef();
 		FixtureDef fdef = new FixtureDef();

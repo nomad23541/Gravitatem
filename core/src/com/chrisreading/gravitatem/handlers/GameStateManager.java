@@ -31,7 +31,7 @@ public class GameStateManager {
 	public GameStateManager(GravitatemGame game) {
 		this.game = game;
 		gameStates = new Stack<GameState>();
-		pushState(MENU);
+		pushState(TUTORIAL);
 	}
 	
 	public void update(float delta) {
