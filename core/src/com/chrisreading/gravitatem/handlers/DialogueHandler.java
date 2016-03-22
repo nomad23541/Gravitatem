@@ -23,13 +23,13 @@ public class DialogueHandler {
 	
 	private Vector2 position; // location
 	
-	public DialogueHandler(Vector2 position) {
+	public DialogueHandler(Vector2 position, String file) {
 		this.position = position;
 		
 		dialogue = new LinkedList<String>();
 		
 		// create font with settings
-		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("res/texture/font/slkscr.TTF"));
+		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(file);
 		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
 		parameter.size = 16;
 		parameter.color = Color.YELLOW;
