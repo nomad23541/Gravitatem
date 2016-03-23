@@ -29,7 +29,7 @@ public class DialogueHandler {
 		dialogue = new LinkedList<String>();
 		
 		// create font with settings
-		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(file);
+		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(file));
 		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
 		parameter.size = 16;
 		parameter.color = Color.YELLOW;

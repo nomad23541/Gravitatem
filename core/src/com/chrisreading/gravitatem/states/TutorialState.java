@@ -1,54 +1,25 @@
 package com.chrisreading.gravitatem.states;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.World;
 import com.chrisreading.gravitatem.GravitatemGame;
 import com.chrisreading.gravitatem.entities.Player;
 import com.chrisreading.gravitatem.handlers.BoundedCamera;
-import com.chrisreading.gravitatem.handlers.ContactHandler;
 import com.chrisreading.gravitatem.handlers.GameStateManager;
-import com.chrisreading.gravitatem.handlers.Input;
 import com.chrisreading.gravitatem.handlers.MapLoader;
 import com.chrisreading.gravitatem.handlers.ParallaxBackground;
 import com.chrisreading.gravitatem.handlers.ParallaxLayer;
+import com.chrisreading.gravitatem.handlers.Timer;
 import com.chrisreading.gravitatem.handlers.Vars;
 
-import box2dLight.PointLight;
-import box2dLight.RayHandler;
-
-public class TutorialState extends GameState {
-	
-	protected World world; // box2d world
-	protected RayHandler ray; // lighting
-	protected Box2DDebugRenderer b2dr;
-	protected BoundedCamera b2dCam;
-	protected ContactHandler cm;
-	
-	protected MapLoader map; // map to load from
+public class TutorialState extends LevelState {
 	
 	private Player player;
-	
 	private ParallaxBackground pbg;
 
 	public TutorialState(GameStateManager gsm) {
 		super(gsm);
-		
-		// create box2d world to handle physics
-		world = new World(new Vector2(0, -Vars.GRAVITY), false);
-		cm = new ContactHandler();
-		world.setContactListener(cm);
-		b2dr = new Box2DDebugRenderer();
-		
-		// create lighting
-		ray = new RayHandler(world);
-		ray.setShadows(true);
-		RayHandler.useDiffuseLight(true);
-		ray.setAmbientLight(0.2f, 0.2f, 0.2f, 0.1f);
 		
 		// create map and load layers
 		map = new MapLoader(world, "levels/tutorial.tmx");
@@ -70,21 +41,15 @@ public class TutorialState extends GameState {
 		
 		player = new Player(world, map.getPlayerSpawn());
 		
-		createLights();
-	}
-	
-	private void createLights() {
-		for(Vector2 point : map.getLights((TiledMapTileLayer) map.getTiledMap().getLayers().get("Light"))) {
-			new PointLight(ray, 100, Color.WHITE, 100, point.x, point.y);
-		}
+		timer = new Timer(3) {
+			public void run() {
+				createLights();
+			}
+		};
 	}
 	
 	public void handleInput() {
-		// debug mode
-		if(Input.isPressed(Input.DEBUG))
-			Vars.DEBUG = !Vars.DEBUG;
-		
-		Input.update();
+		super.handleInput();
 	}
 	
 	public void update(float delta) {
@@ -106,9 +71,9 @@ public class TutorialState extends GameState {
 	}
 	
 	public void render() {
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // clear screen
+		super.render();
 		
-		sb.setProjectionMatrix(cam.combined);
+		timer.render();
 		
 		// draw background
 		pbg.render(Gdx.graphics.getDeltaTime());
@@ -122,16 +87,11 @@ public class TutorialState extends GameState {
 		
 		// draw lighting
 		ray.setCombinedMatrix(cam);
+		ray.setShadows(true);
 		ray.updateAndRender();
 		
 		if(Vars.DEBUG)
 			b2dr.render(world, b2dCam.combined);
-	}
-
-	public void dispose() {
-		ray.dispose();
-		map.dispose();
-		world.dispose();
 	}
 	
 }
