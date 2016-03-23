@@ -31,10 +31,11 @@ public class LevelState extends GameState {
 	protected ContactHandler cm;
 	
 	protected Timer timer;
+	protected boolean gravitySwitch = false;
 	
 	protected MapLoader map;
 	
-	private ParallaxBackground pbg;
+	protected ParallaxBackground pbg;
 
 	public LevelState(GameStateManager gsm) {
 		super(gsm);
@@ -60,6 +61,14 @@ public class LevelState extends GameState {
 		}
 	}
 	
+	protected void handleGravity() {
+		if(gravitySwitch) {
+			world.setGravity(new Vector2(0, Vars.GRAVITY));
+		} else {
+			world.setGravity(new Vector2(0, -Vars.GRAVITY));
+		}
+	}
+	
 	/**
 	 * Handle peripheral input
 	 */
@@ -68,10 +77,15 @@ public class LevelState extends GameState {
 		if(Input.isPressed(Input.DEBUG))
 			Vars.DEBUG = !Vars.DEBUG;
 		
+		if(Input.isPressed(Input.ENTER))
+			gravitySwitch = !gravitySwitch;
+		
 		Input.update();
 	}
 	
-	public void update(float delta) {}
+	public void update(float delta) { 
+		handleGravity();
+	}
 	
 	public void render() {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // clear screen

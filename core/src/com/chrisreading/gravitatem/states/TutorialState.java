@@ -16,7 +16,6 @@ import com.chrisreading.gravitatem.handlers.Vars;
 public class TutorialState extends LevelState {
 	
 	private Player player;
-	private ParallaxBackground pbg;
 
 	public TutorialState(GameStateManager gsm) {
 		super(gsm);
@@ -36,7 +35,7 @@ public class TutorialState extends LevelState {
 		b2dCam.zoom = cam.zoom;
 		
 		pbg = new ParallaxBackground(new ParallaxLayer[] {
-				new ParallaxLayer(GravitatemGame.content.getTexture("wallPanel"), new Vector2(0.5f, 0.3f), new Vector2(0, 0))
+				new ParallaxLayer(GravitatemGame.content.getTexture("wallPanel"), new Vector2(0.5f, 0.3f), new Vector2(0, 0)),
 		}, GravitatemGame.V_WIDTH, GravitatemGame.V_HEIGHT, new Vector2(0, 0), cam);
 		
 		player = new Player(world, map.getPlayerSpawn());
@@ -53,6 +52,8 @@ public class TutorialState extends LevelState {
 	}
 	
 	public void update(float delta) {
+		super.update(delta);
+		
 		handleInput();
 		
 		// update box2d world
