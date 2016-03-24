@@ -40,8 +40,9 @@ public class TutorialState extends LevelState {
 		
 		player = new Player(world, map.getPlayerSpawn());
 		
-		timer = new Timer(3) {
+		timer = new Timer(1.5f) {
 			public void run() {
+				GravitatemGame.content.getSound("lightsOn").play();
 				createLights();
 			}
 		};

@@ -37,6 +37,16 @@ public class GravitatemGame extends ApplicationAdapter {
 		content.loadTexture("texture/background/WallPanel.png", "wallPanel");
 		content.loadTexture("texture/sprites/player/Player.png", "player");
 		
+		content.loadSound("audio/sfx/LightsOn.wav", "lightsOn");
+		
+		/*
+		// dialogue
+		content.loadSound("audio/sfx/tutorial/Dialogue1.mp3", "d1");
+		content.loadSound("audio/sfx/tutorial/Dialogue2.mp3", "d2");
+		content.loadSound("audio/sfx/tutorial/Dialogue3.mp3", "d3");
+		content.loadSound("audio/sfx/tutorial/Dialogue4.mp3", "d4");
+		*/
+		
 		cam = new BoundedCamera();
 		cam.setToOrtho(false, V_WIDTH, V_HEIGHT);
 		hudCam = new OrthographicCamera();
