@@ -7,6 +7,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.chrisreading.gravitatem.GravitatemGame;
 import com.chrisreading.gravitatem.handlers.BoundedCamera;
 import com.chrisreading.gravitatem.handlers.ContactHandler;
 import com.chrisreading.gravitatem.handlers.GameStateManager;
@@ -50,6 +51,9 @@ public class LevelState extends GameState {
 		ray = new RayHandler(world);
 		RayHandler.useDiffuseLight(true);
 		//ray.setAmbientLight(0.2f, 0.2f, 0.2f, 0.1f);
+		
+		// start background music
+		GravitatemGame.content.getMusic("bgMusic").play();
 	}
 	
 	/**
