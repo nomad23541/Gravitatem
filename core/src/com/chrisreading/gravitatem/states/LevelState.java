@@ -57,7 +57,7 @@ public class LevelState extends GameState {
 	 */
 	protected void createLights() {
 		for(Vector2 point : map.getLights((TiledMapTileLayer) map.getTiledMap().getLayers().get("Light"))) {
-			new PointLight(ray, 100, Color.WHITE, 100, point.x, point.y);
+			new PointLight(ray, 100, Color.WHITE, 110, point.x, point.y);
 		}
 	}
 	
@@ -77,6 +77,11 @@ public class LevelState extends GameState {
 		if(Input.isPressed(Input.DEBUG))
 			Vars.DEBUG = !Vars.DEBUG;
 		
+		// exit program
+		if(Input.isPressed(Input.ESCAPE))
+			Gdx.app.exit();
+		
+		// switch gravity
 		if(Input.isPressed(Input.ENTER))
 			gravitySwitch = !gravitySwitch;
 		

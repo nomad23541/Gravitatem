@@ -12,10 +12,12 @@ import com.chrisreading.gravitatem.handlers.ParallaxBackground;
 import com.chrisreading.gravitatem.handlers.ParallaxLayer;
 import com.chrisreading.gravitatem.handlers.Timer;
 import com.chrisreading.gravitatem.handlers.Vars;
+import com.chrisreading.gravitatem.handlers.sound.DialoguePlayer;
 
 public class TutorialState extends LevelState {
 	
 	private Player player;
+	private DialoguePlayer dplayer;
 
 	public TutorialState(GameStateManager gsm) {
 		super(gsm);
@@ -40,10 +42,17 @@ public class TutorialState extends LevelState {
 		
 		player = new Player(world, map.getPlayerSpawn());
 		
-		timer = new Timer(1.5f) {
+		dplayer = new DialoguePlayer(new Vector2(GravitatemGame.V_WIDTH / 3, 14), "font/visitor1.ttf");
+		dplayer.add(GravitatemGame.content.getMusic("d1"), "Welcome Test Subject 9876");
+		dplayer.add(GravitatemGame.content.getMusic("d2"), "You are apart of the Gravitatem Project,");
+		dplayer.add(GravitatemGame.content.getMusic("d3"), "In which you will control gravity.");
+		dplayer.add(GravitatemGame.content.getMusic("d4"), "Good luck.");
+		
+		timer = new Timer(1.1f) {
 			public void run() {
 				GravitatemGame.content.getSound("lightsOn").play();
 				createLights();
+				dplayer.start();
 			}
 		};
 	}
@@ -91,6 +100,9 @@ public class TutorialState extends LevelState {
 		ray.setCombinedMatrix(cam);
 		ray.setShadows(true);
 		ray.updateAndRender();
+		
+		sb.setProjectionMatrix(hudCam.combined);
+		dplayer.render(sb);
 		
 		if(Vars.DEBUG)
 			b2dr.render(world, b2dCam.combined);
