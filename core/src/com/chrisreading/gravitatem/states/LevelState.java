@@ -1,6 +1,7 @@
 package com.chrisreading.gravitatem.states;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -53,7 +54,9 @@ public class LevelState extends GameState {
 		//ray.setAmbientLight(0.2f, 0.2f, 0.2f, 0.1f);
 		
 		// start background music
-		GravitatemGame.content.getMusic("bgMusic").play();
+		Music music = GravitatemGame.content.getMusic("bgMusic");
+		music.setLooping(true);
+		music.play();
 	}
 	
 	/**
