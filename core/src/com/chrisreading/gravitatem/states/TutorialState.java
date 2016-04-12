@@ -7,6 +7,7 @@ import com.chrisreading.gravitatem.GravitatemGame;
 import com.chrisreading.gravitatem.entities.Player;
 import com.chrisreading.gravitatem.handlers.BoundedCamera;
 import com.chrisreading.gravitatem.handlers.GameStateManager;
+import com.chrisreading.gravitatem.handlers.Hud;
 import com.chrisreading.gravitatem.handlers.Map;
 import com.chrisreading.gravitatem.handlers.ParallaxBackground;
 import com.chrisreading.gravitatem.handlers.ParallaxLayer;
@@ -18,6 +19,7 @@ public class TutorialState extends LevelState {
 	
 	private Player player;
 	private DialoguePlayer dplayer;
+	private Hud hud;
 
 	public TutorialState(GameStateManager gsm) {
 		super(gsm);
@@ -41,6 +43,8 @@ public class TutorialState extends LevelState {
 		}, GravitatemGame.V_WIDTH, GravitatemGame.V_HEIGHT, new Vector2(0, 0), cam);
 		
 		player = new Player(world, map.getPlayerSpawn());
+		
+		hud = new Hud(player, map);
 		
 		dplayer = new DialoguePlayer(new Vector2(GravitatemGame.V_WIDTH / 3, 14), "font/visitor1.ttf");
 		dplayer.add(GravitatemGame.content.getMusic("d1"), "Welcome Test Subject 9876");
@@ -103,6 +107,7 @@ public class TutorialState extends LevelState {
 		
 		sb.setProjectionMatrix(hudCam.combined);
 		dplayer.render(sb);
+		hud.render(sb);
 		
 		if(Vars.DEBUG)
 			b2dr.render(world, b2dCam.combined);

@@ -38,6 +38,9 @@ public class Map {
 	public int getMapHeight() { return mapHeight; }
 	public int getTileSize() { return tileSize; }
 	
+	// coins
+	public int coins = 0;
+	
 	public Map(World world, String path) {
 		this.world = world;
 		
@@ -53,6 +56,17 @@ public class Map {
 		tileSize = (Integer) tileMap.getProperties().get("tilewidth");
 		
 		renderer = new OrthogonalTiledMapRenderer(tileMap);
+	}
+	
+	public int getCoinCount() {
+		return 0; // only return 0 for testing
+	}
+	
+	/**
+	 * Get which level the player is on
+	 */
+	public int getLevel() {
+		return 0;
 	}
 	
 	public Vector2 getPlayerSpawn() {
