@@ -9,7 +9,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.chrisreading.gravitatem.GravitatemGame;
-import com.chrisreading.gravitatem.handlers.BoundedCamera;
 import com.chrisreading.gravitatem.handlers.ContactHandler;
 import com.chrisreading.gravitatem.handlers.GameStateManager;
 import com.chrisreading.gravitatem.handlers.Input;
@@ -17,6 +16,8 @@ import com.chrisreading.gravitatem.handlers.Map;
 import com.chrisreading.gravitatem.handlers.ParallaxBackground;
 import com.chrisreading.gravitatem.handlers.Timer;
 import com.chrisreading.gravitatem.handlers.Vars;
+import com.chrisreading.gravitatem.handlers.camera.BoundedCamera;
+import com.chrisreading.gravitatem.handlers.camera.CameraShake;
 
 import box2dLight.ConeLight;
 import box2dLight.RayHandler;
@@ -36,6 +37,8 @@ public class LevelState extends GameState {
 	protected boolean gravitySwitch = false;
 	
 	protected Map map;
+	
+	protected CameraShake shake;
 	
 	protected ParallaxBackground pbg;
 
@@ -57,6 +60,8 @@ public class LevelState extends GameState {
 		Music music = GravitatemGame.content.getMusic("bgMusic");
 		music.setLooping(true);
 		music.play();
+		
+		shake = new CameraShake();
 	}
 	
 	/**
@@ -105,6 +110,7 @@ public class LevelState extends GameState {
 	
 	public void render() {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // clear screen
+		shake.update(Gdx.graphics.getDeltaTime(), cam, new Vector2(cam.position.x, cam.position.y));
 		
 		sb.setProjectionMatrix(cam.combined);
 	}

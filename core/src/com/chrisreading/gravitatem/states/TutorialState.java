@@ -5,7 +5,6 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 import com.chrisreading.gravitatem.GravitatemGame;
 import com.chrisreading.gravitatem.entities.Player;
-import com.chrisreading.gravitatem.handlers.BoundedCamera;
 import com.chrisreading.gravitatem.handlers.GameStateManager;
 import com.chrisreading.gravitatem.handlers.Hud;
 import com.chrisreading.gravitatem.handlers.Map;
@@ -13,6 +12,7 @@ import com.chrisreading.gravitatem.handlers.ParallaxBackground;
 import com.chrisreading.gravitatem.handlers.ParallaxLayer;
 import com.chrisreading.gravitatem.handlers.Timer;
 import com.chrisreading.gravitatem.handlers.Vars;
+import com.chrisreading.gravitatem.handlers.camera.BoundedCamera;
 import com.chrisreading.gravitatem.handlers.sound.DialoguePlayer;
 
 public class TutorialState extends LevelState {
@@ -57,6 +57,7 @@ public class TutorialState extends LevelState {
 				GravitatemGame.content.getSound("lightsOn").play();
 				createLights();
 				dplayer.start();
+				shake.shake(0.3f);
 			}
 		};
 	}

@@ -3,8 +3,8 @@ package com.chrisreading.gravitatem.states;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.chrisreading.gravitatem.GravitatemGame;
-import com.chrisreading.gravitatem.handlers.BoundedCamera;
 import com.chrisreading.gravitatem.handlers.GameStateManager;
+import com.chrisreading.gravitatem.handlers.camera.BoundedCamera;
 
 /*
  * Extendable, use for all gamestates.
