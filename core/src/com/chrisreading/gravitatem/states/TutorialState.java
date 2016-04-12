@@ -102,7 +102,6 @@ public class TutorialState extends LevelState {
 		
 		// draw lighting
 		ray.setCombinedMatrix(cam);
-		ray.setShadows(true);
 		ray.updateAndRender();
 		
 		sb.setProjectionMatrix(hudCam.combined);

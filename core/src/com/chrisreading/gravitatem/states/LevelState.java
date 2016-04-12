@@ -18,7 +18,7 @@ import com.chrisreading.gravitatem.handlers.ParallaxBackground;
 import com.chrisreading.gravitatem.handlers.Timer;
 import com.chrisreading.gravitatem.handlers.Vars;
 
-import box2dLight.PointLight;
+import box2dLight.ConeLight;
 import box2dLight.RayHandler;
 
 /**
@@ -51,7 +51,7 @@ public class LevelState extends GameState {
 		// create lighting
 		ray = new RayHandler(world);
 		RayHandler.useDiffuseLight(true);
-		//ray.setAmbientLight(0.2f, 0.2f, 0.2f, 0.1f);
+		ray.setAmbientLight(0.1f, 0.1f, 0.1f, 0.1f);
 		
 		// start background music
 		Music music = GravitatemGame.content.getMusic("bgMusic");
@@ -63,8 +63,12 @@ public class LevelState extends GameState {
 	 * Find all light points and create
 	 */
 	protected void createLights() {
-		for(Vector2 point : map.getLights((TiledMapTileLayer) map.getTiledMap().getLayers().get("Light"))) {
-			new PointLight(ray, 100, Color.WHITE, 110, point.x, point.y);
+		for(Vector2 point : map.getLights((TiledMapTileLayer) map.getTiledMap().getLayers().get("Top Lights"))) {
+			new ConeLight(ray, 60, Color.WHITE, 250, point.x, point.y + 16, 270, 90);
+		}
+		
+		for(Vector2 point : map.getLights((TiledMapTileLayer) map.getTiledMap().getLayers().get("Bottom Lights"))) {
+			new ConeLight(ray, 60, Color.WHITE, 250, point.x, point.y - 16, 90, 90);
 		}
 	}
 	
