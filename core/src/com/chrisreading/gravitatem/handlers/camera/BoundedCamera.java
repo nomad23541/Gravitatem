@@ -1,4 +1,4 @@
-package com.chrisreading.gravitatem.handlers;
+package com.chrisreading.gravitatem.handlers.camera;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
