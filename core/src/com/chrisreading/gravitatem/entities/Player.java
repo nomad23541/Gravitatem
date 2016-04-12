@@ -14,7 +14,7 @@ import com.chrisreading.gravitatem.handlers.Vars;
 
 public class Player extends Entity {
 	
-	public enum PlayerState { MOVING, JUMPING, IDLE }
+	public enum PlayerState { WALKING, JUMPING, IDLE }
 	
 	private PlayerState state;	
 	private int score = 0;
@@ -25,7 +25,7 @@ public class Player extends Entity {
 	public void setScore(int score) { this.score = score; }
 	public int getScore() { return this.score; }
 	
-	public TextureRegion[] idleSprites, movingSprites, jumpingSprites; // animations
+	public TextureRegion[] idleSprites, walkingSprites, jumpingSprites; // animations
 	
 	// player values
 	public static final float MOVE_SPEED = 0.9f;
@@ -39,11 +39,24 @@ public class Player extends Entity {
 		// idle animation
 		idleSprites = new TextureRegion[1];
 		for(int i = 0; i < idleSprites.length; i++) {
-			idleSprites[i] = new TextureRegion(GravitatemGame.content.getTexture("player"), i * 16, 0, 16, 16);
+			idleSprites[i] = new TextureRegion(GravitatemGame.content.getTexture("playerWalk"), i * 9, 0, 9, 16);
+		}
+		
+		// idle animation
+		walkingSprites = new TextureRegion[12];
+		for(int i = 0; i < walkingSprites.length; i++) {
+			walkingSprites[i] = new TextureRegion(GravitatemGame.content.getTexture("playerWalk"), i * 9, 0, 9, 16);
+		}
+		
+		// idle animation
+		jumpingSprites = new TextureRegion[1];
+		for(int i = 0; i < jumpingSprites.length; i++) {
+			jumpingSprites[i] = new TextureRegion(GravitatemGame.content.getTexture("playerWalk"), i * 9, 0, 9, 16);
 		}
 		
 		setFrames(idleSprites, 0);
-		width = 16; height = 16;
+		width = idleSprites[0].getRegionWidth();
+		height = idleSprites[0].getRegionHeight();
 		
 		BodyDef bdef = new BodyDef();
 		FixtureDef fdef = new FixtureDef();
@@ -57,7 +70,7 @@ public class Player extends Entity {
 		shape.setAsBox((width / 2.4f) / Vars.PPM, (height / 2.4f) / Vars.PPM);
 		fdef.shape = shape;
 		fdef.filter.categoryBits = Vars.BIT_PLAYER;
-		fdef.filter.maskBits = Vars.BIT_PORTAL | Vars.BIT_GROUND | Vars.BIT_CRYSTAL;
+		fdef.filter.maskBits = Vars.BIT_GROUND;
 		fdef.density = 0.0f;
 		body.createFixture(fdef).setUserData("player");
 		
@@ -66,7 +79,7 @@ public class Player extends Entity {
 		shape.setAsBox(width / 4 / Vars.PPM, 2 / Vars.PPM, new Vector2(0, -height / 2 / Vars.PPM), 0);
 		fdef.shape = shape;
 		fdef.filter.categoryBits = Vars.BIT_PLAYER;
-		fdef.filter.maskBits = Vars.BIT_PORTAL | Vars.BIT_GROUND | Vars.BIT_CRYSTAL;
+		fdef.filter.maskBits = Vars.BIT_GROUND;
 		fdef.isSensor = true;
 		body.createFixture(fdef).setUserData("foot");
 	}
@@ -88,20 +101,29 @@ public class Player extends Entity {
 		}
 	}
 	
+	private void handleState() {
+		if(!ContactHandler.isPlayerOnGround()) {
+			setState(PlayerState.JUMPING);
+		} else if(body.getLinearVelocity().x > 0 | body.getLinearVelocity().x < 0) {
+			setState(PlayerState.WALKING);
+		} else {
+			setState(PlayerState.IDLE);
+		}
+	}
+	
 	public void update(float delta) {
 		super.update(delta);
 		handleInput();
+		handleState();
 		
-		/*
 		// set frames
-		if(state == PlayerState.MOVING) {
-			setFrames(movingSprites, 1 / 8f);
+		if(state == PlayerState.WALKING) {
+			setFrames(walkingSprites, 1 / 25f);
 		} else if(state == PlayerState.JUMPING) {
 			setFrames(jumpingSprites, 1 / 1.0f);
 		} else if(state == PlayerState.IDLE) {
 			setFrames(idleSprites, 1 / 1.2f);
 		}
-		*/
 	} 
 
 }
