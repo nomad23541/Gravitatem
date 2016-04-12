@@ -111,10 +111,21 @@ public class Player extends Entity {
 		}
 	}
 	
+	float timeNextStep = 0;
 	public void update(float delta) {
 		super.update(delta);
 		handleInput();
 		handleState();
+		
+		// play walking sound
+		if(state == PlayerState.WALKING) {
+			timeNextStep -= delta;
+			if (timeNextStep < 0) {
+				GravitatemGame.content.getSound("footstep").play();
+				while(timeNextStep < 0) 
+					timeNextStep += 0.5f;
+			}
+		}
 		
 		// set frames
 		if(state == PlayerState.WALKING) {

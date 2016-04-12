@@ -4,10 +4,10 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.chrisreading.gravitatem.handlers.BoundedCamera;
 import com.chrisreading.gravitatem.handlers.ContentPipeline;
 import com.chrisreading.gravitatem.handlers.GameStateManager;
 import com.chrisreading.gravitatem.handlers.InputProcessor;
+import com.chrisreading.gravitatem.handlers.camera.BoundedCamera;
 
 public class GravitatemGame extends ApplicationAdapter {
 	
@@ -41,6 +41,7 @@ public class GravitatemGame extends ApplicationAdapter {
 		content.loadMusic("audio/music/Lightless Dawn.mp3", "bgMusic");
 		
 		content.loadSound("audio/sfx/LightsOn.wav", "lightsOn");
+		content.loadSound("audio/sfx/Footstep.wav", "footstep");
 		
 		// tutorial dialogue
 		content.loadMusic("audio/sfx/tutorial/Dialogue1.wav", "d1");
