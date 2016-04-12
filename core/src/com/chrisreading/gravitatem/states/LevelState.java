@@ -13,7 +13,7 @@ import com.chrisreading.gravitatem.handlers.BoundedCamera;
 import com.chrisreading.gravitatem.handlers.ContactHandler;
 import com.chrisreading.gravitatem.handlers.GameStateManager;
 import com.chrisreading.gravitatem.handlers.Input;
-import com.chrisreading.gravitatem.handlers.MapLoader;
+import com.chrisreading.gravitatem.handlers.Map;
 import com.chrisreading.gravitatem.handlers.ParallaxBackground;
 import com.chrisreading.gravitatem.handlers.Timer;
 import com.chrisreading.gravitatem.handlers.Vars;
@@ -35,7 +35,7 @@ public class LevelState extends GameState {
 	protected Timer timer;
 	protected boolean gravitySwitch = false;
 	
-	protected MapLoader map;
+	protected Map map;
 	
 	protected ParallaxBackground pbg;
 

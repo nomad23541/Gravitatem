@@ -4,13 +4,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.chrisreading.gravitatem.handlers.GameStateManager;
 import com.chrisreading.gravitatem.handlers.Input;
-import com.chrisreading.gravitatem.handlers.MapLoader;
+import com.chrisreading.gravitatem.handlers.Map;
 
 import box2dLight.RayHandler;
 
 public class MenuState extends GameState {
 	
-	private MapLoader map;
+	private Map map;
 	private RayHandler handler; // lighting
 	
 	public MenuState(GameStateManager gsm) {
@@ -21,7 +21,7 @@ public class MenuState extends GameState {
 		handler.setCombinedMatrix(cam);
 		RayHandler.useDiffuseLight(true);
 		
-		map = new MapLoader(null, "res/levels/menu.tmx");
+		map = new Map(null, "res/levels/menu.tmx");
 		
 		// set camera
 		//cam.setBounds(0, map.getMapWidth() * map.getTileSize(), 0, map.getMapHeight() * map.getTileSize());			

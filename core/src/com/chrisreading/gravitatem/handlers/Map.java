@@ -25,7 +25,7 @@ import com.badlogic.gdx.physics.box2d.World;
  * Loads and renders a tiled map, creates
  * box2d bodies from cells.
  */
-public class MapLoader {
+public class Map {
 	
 	private TiledMap tileMap;
 	private OrthogonalTiledMapRenderer renderer;
@@ -38,7 +38,7 @@ public class MapLoader {
 	public int getMapHeight() { return mapHeight; }
 	public int getTileSize() { return tileSize; }
 	
-	public MapLoader(World world, String path) {
+	public Map(World world, String path) {
 		this.world = world;
 		
 		// set rendering settings to avoid "bleeding"
