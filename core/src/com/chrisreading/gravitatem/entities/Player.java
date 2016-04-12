@@ -16,14 +16,14 @@ public class Player extends Entity {
 	
 	public enum PlayerState { MOVING, JUMPING, IDLE }
 	
-	private PlayerState state;
-	private int crystals; 
-	
-	public int getCrystals() { return crystals; }
-	public void addCrystal() { crystals++; }
+	private PlayerState state;	
+	private int score = 0;
 	
 	public void setState(PlayerState state) { this.state = state; }
 	public PlayerState getState() { return state; }
+	
+	public void setScore(int score) { this.score = score; }
+	public int getScore() { return this.score; }
 	
 	public TextureRegion[] idleSprites, movingSprites, jumpingSprites; // animations
 	
