@@ -66,8 +66,8 @@ public class Map {
 	/**
 	 * Get which level the player is on
 	 */
-	public int getLevel() {
-		return 0;
+	public String getLevel() {
+		return tileMap.getProperties().get("name", String.class);
 	}
 	
 	public Vector2 getPlayerSpawn() {
