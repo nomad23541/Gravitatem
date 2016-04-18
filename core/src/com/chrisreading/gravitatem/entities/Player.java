@@ -76,7 +76,7 @@ public class Player extends Entity {
 		
 		body.setLinearDamping(1.0f);
 		
-		shape.setAsBox(width / 4 / Vars.PPM, 2 / Vars.PPM, new Vector2(0, -height / 2 / Vars.PPM), 0);
+		shape.setAsBox(width / 4 / Vars.PPM, .6f / Vars.PPM, new Vector2(0, -height / 2 / Vars.PPM), 0);
 		fdef.shape = shape;
 		fdef.filter.categoryBits = Vars.BIT_PLAYER;
 		fdef.filter.maskBits = Vars.BIT_GROUND;

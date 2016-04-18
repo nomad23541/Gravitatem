@@ -105,12 +105,12 @@ public class TutorialState extends LevelState {
 		ray.setCombinedMatrix(cam);
 		ray.updateAndRender();
 		
+		if(Vars.DEBUG)
+			b2dr.render(world, b2dCam.combined);
+		
 		sb.setProjectionMatrix(hudCam.combined);
 		dplayer.render(sb);
 		hud.render(sb);
-		
-		if(Vars.DEBUG)
-			b2dr.render(world, b2dCam.combined);
 	}
 	
 }
