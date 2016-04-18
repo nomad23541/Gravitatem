@@ -102,8 +102,10 @@ public class TutorialState extends LevelState {
 		sb.end();
 		
 		// draw lighting
-		ray.setCombinedMatrix(cam);
-		ray.updateAndRender();
+		if(!Vars.DEBUG) {
+			ray.setCombinedMatrix(cam);
+			ray.updateAndRender();	
+		}
 		
 		if(Vars.DEBUG)
 			b2dr.render(world, b2dCam.combined);
