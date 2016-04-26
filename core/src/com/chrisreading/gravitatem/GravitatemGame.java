@@ -37,6 +37,12 @@ public class GravitatemGame extends ApplicationAdapter {
 		content.loadTexture("texture/background/WallPanel.png", "wallPanel");
 		content.loadTexture("texture/sprites/player/PlayerWalk.png", "playerWalk");
 		
+		// portal
+		content.loadTexture("texture/sprites/Portal.png", "portal");
+		content.loadTexture("texture/sprites/PortalClosed.png", "portalClosed");
+		
+		content.loadTexture("texture/sprites/Coin.png", "coin");
+		
 		// music
 		content.loadMusic("audio/music/Lightless Dawn.mp3", "bgMusic");
 		

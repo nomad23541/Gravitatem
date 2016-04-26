@@ -4,7 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 import com.chrisreading.gravitatem.GravitatemGame;
+import com.chrisreading.gravitatem.entities.Coin;
 import com.chrisreading.gravitatem.entities.Player;
+import com.chrisreading.gravitatem.entities.Portal;
+import com.chrisreading.gravitatem.entities.Portal.PortalState;
 import com.chrisreading.gravitatem.handlers.GameStateManager;
 import com.chrisreading.gravitatem.handlers.Hud;
 import com.chrisreading.gravitatem.handlers.Map;
@@ -17,7 +20,6 @@ import com.chrisreading.gravitatem.handlers.sound.DialoguePlayer;
 
 public class TutorialState extends LevelState {
 	
-	private Player player;
 	private DialoguePlayer dplayer;
 	private Hud hud;
 
@@ -43,6 +45,7 @@ public class TutorialState extends LevelState {
 		}, GravitatemGame.V_WIDTH, GravitatemGame.V_HEIGHT, new Vector2(0, 0), cam);
 		
 		player = new Player(world, map.getPlayerSpawn());
+		portal = new Portal(world, map.getPortalSpawn(), shake);	
 		
 		hud = new Hud(player, map);
 		
@@ -60,6 +63,8 @@ public class TutorialState extends LevelState {
 				shake.shake(0.3f);
 			}
 		};
+		
+		createCoins();
 	}
 	
 	public void handleInput() {
@@ -74,6 +79,10 @@ public class TutorialState extends LevelState {
 		// update box2d world
 		world.step(Gdx.graphics.getDeltaTime(), 4, 2);
 		player.update(delta);
+		portal.update(delta);
+		
+		for(Coin coin : coins)
+			coin.update(delta);
 		
 		// set camera to follow player
 		cam.setPosition(player.getBody().getPosition().x * Vars.PPM + GravitatemGame.V_WIDTH / Vars.PPM, GravitatemGame.V_HEIGHT / 2);
@@ -93,12 +102,14 @@ public class TutorialState extends LevelState {
 		
 		// draw background
 		pbg.render(Gdx.graphics.getDeltaTime());
-		
 		// draw map
 		map.render(cam);
 		
 		sb.begin();
 		player.render(sb); // draw player
+		portal.render(sb);
+		for(Coin coin : coins)
+			coin.render(sb);
 		sb.end();
 		
 		// draw lighting

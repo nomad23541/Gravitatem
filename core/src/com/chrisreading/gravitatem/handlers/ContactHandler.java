@@ -17,7 +17,7 @@ public class ContactHandler implements ContactListener {
 	private boolean portalCollide;	
 	private boolean dead = false;
 	
-	private Array<Body> crystalsToRemove;
+	private Array<Body> coinsToRemove;
 	private Array<Body> enemiesToRemove;
 	
 	public boolean isPlayerDead() { return dead; }
@@ -25,12 +25,12 @@ public class ContactHandler implements ContactListener {
 	public static boolean isPlayerOnGround() { return numFootContacts > 0; }
 	public boolean isPlayerInPortal() { return portalCollide; }
 	
-	public Array<Body> getCrystalsToRemove() { return crystalsToRemove; }
+	public Array<Body> getCoinsToRemove() { return coinsToRemove; }
 	public Array<Body> getEnemiesToRemove() { return enemiesToRemove; }
 	
 	public ContactHandler() {
 		super();
-		crystalsToRemove = new Array<Body>();
+		coinsToRemove = new Array<Body>();
 		enemiesToRemove = new Array<Body>();
 	}
 	
@@ -40,12 +40,12 @@ public class ContactHandler implements ContactListener {
 		
 		// is player on the ground
 		if(fa.getUserData() != null && fa.getUserData().equals("foot")) {
-			if(!fb.getUserData().equals("crystal") && !fb.getUserData().equals("portal"))
+			if(!fb.getUserData().equals("coin") && !fb.getUserData().equals("portal"))
 				numFootContacts++;
 		}
 		
 		if(fb.getUserData() != null && fb.getUserData().equals("foot")) {
-			if(!fa.getUserData().equals("crystal") && !fa.getUserData().equals("portal"))
+			if(!fa.getUserData().equals("coin") && !fa.getUserData().equals("portal"))
 				numFootContacts++;
 		}
 		
@@ -59,12 +59,12 @@ public class ContactHandler implements ContactListener {
 		}
 		
 		// crystal collision detection
-		if(fa.getUserData() != null && fa.getUserData().equals("crystal")) {
-			crystalsToRemove.add(fa.getBody());
+		if(fa.getUserData() != null && fa.getUserData().equals("coin")) {
+			coinsToRemove.add(fa.getBody());
 		}
 		
-		if(fb.getUserData() != null && fb.getUserData().equals("crystal")) {
-			crystalsToRemove.add(fb.getBody());
+		if(fb.getUserData() != null && fb.getUserData().equals("coin")) {
+			coinsToRemove.add(fb.getBody());
 		}
 		
 		// laser collision detection
@@ -118,12 +118,12 @@ public class ContactHandler implements ContactListener {
 		
 		// is player on the ground
 		if(fa.getUserData() != null && fa.getUserData().equals("foot")) {
-			if(!fb.getUserData().equals("crystal") && !fb.getUserData().equals("portal"))
+			if(!fb.getUserData().equals("coin") && !fb.getUserData().equals("portal"))
 				numFootContacts--;
 		}
 		
 		if(fb.getUserData() != null && fb.getUserData().equals("foot")) {
-			if(!fa.getUserData().equals("crystal") && !fa.getUserData().equals("portal"))
+			if(!fa.getUserData().equals("coin") && !fa.getUserData().equals("portal"))
 				numFootContacts--;
 		}
 		

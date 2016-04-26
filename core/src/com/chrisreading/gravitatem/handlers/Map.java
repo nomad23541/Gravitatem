@@ -16,11 +16,11 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-import com.chrisreading.gravitatem.handlers.camera.BoundedCamera;
 import com.badlogic.gdx.physics.box2d.ChainShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.chrisreading.gravitatem.handlers.camera.BoundedCamera;
 
 /**
  * Loads and renders a tiled map, creates
@@ -59,15 +59,32 @@ public class Map {
 		renderer = new OrthogonalTiledMapRenderer(tileMap);
 	}
 	
-	public int getCoinCount() {
-		return 0; // only return 0 for testing
-	}
-	
 	/**
 	 * Get which level the player is on
 	 */
 	public String getLevel() {
 		return tileMap.getProperties().get("name", String.class);
+	}
+	
+	public Vector2 getPortalSpawn() {
+		for(MapObject obj : tileMap.getLayers().get("Spawn Points").getObjects()) {
+			if(obj.getName().equals("PortalSpawn")) {
+				return new Vector2(((RectangleMapObject) obj).getRectangle().x / Vars.PPM, 
+						((RectangleMapObject) obj).getRectangle().y / Vars.PPM);
+			}
+		}
+		
+		return Vector2.Zero;
+	}
+	
+	public List<Vector2> getCoinSpawns() {
+		List<Vector2> coins = new ArrayList<Vector2>();
+		for(MapObject obj : tileMap.getLayers().get("Coins").getObjects()) {
+				coins.add(new Vector2(((RectangleMapObject) obj).getRectangle().x / Vars.PPM, 
+						((RectangleMapObject) obj).getRectangle().y / Vars.PPM));
+		}
+		
+		return coins;
 	}
 	
 	public Vector2 getPlayerSpawn() {

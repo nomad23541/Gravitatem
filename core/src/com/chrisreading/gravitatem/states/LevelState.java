@@ -6,9 +6,15 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 import com.chrisreading.gravitatem.GravitatemGame;
+import com.chrisreading.gravitatem.entities.Coin;
+import com.chrisreading.gravitatem.entities.Player;
+import com.chrisreading.gravitatem.entities.Portal;
+import com.chrisreading.gravitatem.entities.Portal.PortalState;
 import com.chrisreading.gravitatem.handlers.ContactHandler;
 import com.chrisreading.gravitatem.handlers.GameStateManager;
 import com.chrisreading.gravitatem.handlers.Input;
@@ -37,14 +43,20 @@ public class LevelState extends GameState {
 	protected boolean gravitySwitch = false;
 	
 	protected Map map;
+	protected Portal portal;
+	protected Player player;
 	
 	protected CameraShake shake;
 	
 	protected ParallaxBackground pbg;
+	
+	protected Array<Coin> coins;
 
 	public LevelState(GameStateManager gsm) {
 		super(gsm);
 		
+		coins = new Array<Coin>();
+			
 		// create box2d world to handle physics
 		world = new World(new Vector2(0, -Vars.GRAVITY), false);
 		cm = new ContactHandler();
@@ -62,6 +74,12 @@ public class LevelState extends GameState {
 		music.play();
 		
 		shake = new CameraShake();
+	}
+	
+	protected void createCoins() {
+		for(Vector2 loc: map.getCoinSpawns()) {
+			coins.add(new Coin(world, loc));
+		}
 	}
 	
 	/**
@@ -106,6 +124,20 @@ public class LevelState extends GameState {
 	
 	public void update(float delta) { 
 		handleGravity();
+		
+		if(coins.size == 0 && portal.getState() == PortalState.CLOSE) {
+			portal.setState(PortalState.OPEN);
+		}
+		
+		// check for collected crystals
+		Array<Body> bodies = cm.getCoinsToRemove();
+		for(int i = 0; i < bodies.size; i++) {
+			Body b = bodies.get(i);
+			coins.removeValue((Coin) b.getUserData(), true);
+			world.destroyBody(b);
+			player.setScore(player.getScore() + 3);
+		}
+		bodies.clear();
 	}
 	
 	public void render() {
