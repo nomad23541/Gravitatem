@@ -16,7 +16,7 @@ public class Vars {
 	public static final short BIT_PLAYER = 2;
 	public static final short BIT_GROUND = 4;
 	public static final short BIT_PORTAL = 8;
-	public static final short BIT_CRYSTAL = 16;
+	public static final short BIT_COIN = 16;
 	public static final short BIT_LASER = 24;
 	public static final short BIT_DROID = 36;
 

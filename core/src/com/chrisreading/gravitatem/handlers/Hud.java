@@ -37,7 +37,7 @@ public class Hud {
 	public void render(SpriteBatch sb) {
 		sb.begin();
 		font.draw(sb, "Score: " + player.getScore(), GravitatemGame.V_WIDTH / 2.6f, GravitatemGame.V_HEIGHT - 2);	// score
-		font.draw(sb, "Enemies Left: " + map.getCoinCount(), GravitatemGame.V_WIDTH / 2.0f, GravitatemGame.V_HEIGHT - 2); // coins
+		font.draw(sb, "Enemies Left: " + map.getCoinSpawns().size(), GravitatemGame.V_WIDTH / 2.0f, GravitatemGame.V_HEIGHT - 2); // coins
 		font.draw(sb, "Level: " + map.getLevel(), GravitatemGame.V_WIDTH / 1.5f, GravitatemGame.V_HEIGHT - 2); // level
 		
 		// DEBUG

@@ -70,7 +70,7 @@ public class Player extends Entity {
 		shape.setAsBox((width / 2.4f) / Vars.PPM, (height / 2.4f) / Vars.PPM);
 		fdef.shape = shape;
 		fdef.filter.categoryBits = Vars.BIT_PLAYER;
-		fdef.filter.maskBits = Vars.BIT_GROUND;
+		fdef.filter.maskBits = Vars.BIT_GROUND | Vars.BIT_COIN | Vars.BIT_PORTAL;
 		fdef.density = 0.0f;
 		body.createFixture(fdef).setUserData("player");
 		
